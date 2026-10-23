@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Bench — Research Portal Demo</title>
+<style>
+:root{--navy:#142941;--navy2:#1d3856;--blue:#3569b7;--bg:#f4f7fb;--line:#dce4ee;--text:#1d2b3f;--muted:#718096;--green:#15966a;--red:#d94d55;--amber:#d99b28}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:220px 1fr}
+.sidebar{background:var(--navy);color:#dce7f4;padding:22px 14px;display:flex;flex-direction:column;gap:22px}.brand{display:flex;gap:10px;align-items:center;padding:0 8px 18px;border-bottom:1px solid #ffffff20}.brandmark{font-size:27px;color:#e6c47d}.brand b{font-size:17px;letter-spacing:.5px;display:block}.brand small{color:#aebed0;font-size:10px}.nav{display:grid;gap:5px}.nav button{background:transparent;border:0;color:#d2deeb;text-align:left;padding:11px 12px;border-radius:9px}.nav button:hover,.nav button.active{background:#ffffff1b;color:white}.nav button span{display:inline-block;width:25px}.sidebottom{margin-top:auto;color:#aebed0;padding:10px}
+.main{min-width:0}.topbar{height:64px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:16px}.search{width:min(370px,45%);border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#f8fafc}.profile{font-size:12px;color:#536276}.content{padding:25px;max-width:1600px;margin:auto}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue);font-weight:800}.headingrow{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.headingrow h1{font-size:25px;line-height:1.2;margin:5px 0 7px;letter-spacing:-.6px}.muted{color:var(--muted)}.btnrow{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:white;color:var(--text);padding:9px 12px;border-radius:8px;font-weight:650}.btn.primary{background:var(--navy);border-color:var(--navy);color:white}.btn.blue{background:var(--blue);color:white;border-color:var(--blue)}.btn:hover{filter:brightness(.97)}.meta{display:flex;gap:9px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin:10px 0 18px}.pill{display:inline-flex;align-items:center;padding:3px 8px;border-radius:99px;font-size:11px;font-weight:750;background:#eaf7f1;color:var(--green)}.context{padding:12px 14px;border:1px solid var(--line);background:white;border-radius:10px;margin:16px 0 18px}.tabs{display:flex;gap:4px;overflow:auto;border-bottom:1px solid var(--line);margin-bottom:17px}.tabs button{white-space:nowrap;border:0;background:transparent;padding:12px 14px;color:var(--muted);border-bottom:2px solid transparent}.tabs button.active{color:var(--navy);border-color:var(--blue);font-weight:800}.layout{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:17px}.panel{background:white;border:1px solid var(--line);border-radius:12px;padding:17px;margin-bottom:15px;box-shadow:0 2px 7px #1b355006}.panel h2{font-size:15px;margin:0 0 13px}.modelrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}.model{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;gap:9px;align-items:center;background:white}.model.selected{border-color:#8cb4eb;background:#f0f6ff}.modelicon{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;background:#eef3fb;font-weight:900;color:var(--blue)}.model b{display:block;font-size:12px}.model small{color:var(--muted);font-size:10px}.rank{margin-left:auto;font-size:10px;color:var(--muted);background:#edf1f6;border-radius:99px;padding:4px 6px}.rank.first{background:#d9f6e9;color:#087c52}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:550px}th,td{text-align:left;border-bottom:1px solid #e7edf4;padding:11px 9px;font-size:12px}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;background:#f8fafc}td strong{font-size:12px}.bar{height:5px;border-radius:99px;background:#e8eef5;overflow:hidden;margin-top:6px;min-width:70px}.bar i{display:block;height:100%;border-radius:99px;background:var(--green)}.bar i.low{background:var(--amber)}.bar i.bad{background:var(--red)}.outputgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.output{border:1px solid var(--line);border-radius:9px;overflow:hidden}.outhead{padding:10px;background:#f7faff;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:750;font-size:11px}.outbody{padding:12px;font-size:12px;color:#46566b;line-height:1.6}.outbody .source{font-size:10px;color:var(--muted);border-top:1px solid #edf1f6;margin-top:10px;padding-top:8px}.issue{display:grid;grid-template-columns:1.2fr .65fr .65fr 1.7fr;gap:10px;padding:11px 8px;border-bottom:1px solid #e7edf4;font-size:11px;align-items:center}.issue.head{color:var(--muted);font-size:10px;text-transform:uppercase;background:#f8fafc}.severity{border-radius:6px;padding:3px 6px;font-weight:800;display:inline-block;width:max-content}.critical{background:#ffe0e1;color:#bb252d}.major{background:#fff0d8;color:#a86400}.minor{background:#e4f0ff;color:#235ca0}.sidepanel{background:white;border:1px solid var(--line);border-radius:12px;padding:15px;margin-bottom:14px}.sidepanel h3{font-size:13px;margin:0 0 13px}.stat{padding:8px 0;border-bottom:1px solid #edf1f6}.stat:last-child{border:0}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{display:block;margin-top:3px}.callout{background:#eef3ff;border:1px solid #dce6ff;padding:13px;border-radius:10px;font-size:12px;color:#35517b}.hidden{display:none!important}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:750}.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:8px;padding:10px;background:white;min-width:0}.field textarea{min-height:90px;resize:vertical}.notice{padding:12px;border-radius:9px;background:#fff6e4;color:#805716;font-size:12px;margin-top:12px}.caseitem{border:1px solid var(--line);border-radius:9px;padding:13px;margin-bottom:9px;display:flex;justify-content:space-between;gap:12px;background:white}.caseitem b{display:block}.caseitem small{color:var(--muted)}.empty{padding:28px;text-align:center;color:var(--muted)}.toast{position:fixed;right:22px;bottom:22px;background:#12283f;color:white;padding:13px 17px;border-radius:10px;box-shadow:0 8px 30px #0002;display:none;z-index:10}.footer{color:#8995a6;font-size:10px;text-align:center;margin:20px 0}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.rightcol{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.callout{grid-column:1/-1}.content{padding:18px}.app{grid-template-columns:180px 1fr}}
+@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{padding:10px;gap:8px}.brand{padding:4px 8px 10px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:8px}.sidebottom{display:none}.topbar{padding:0 14px;height:55px}.content{padding:14px}.headingrow{display:block}.btnrow{margin-top:12px}.modelrow,.outputgrid{grid-template-columns:1fr}.rightcol{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.headingrow h1{font-size:22px}.search{width:55%}.issue{min-width:640px}.issuewrap{overflow:auto}.panel{padding:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brandmark">⚖</div><div><b>LEGAL BENCH</b><small>AI Legal Research Evaluation</small></div></div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="dashboard"><span>⌂</span>Dashboard</button>
+    <button data-page="cases"><span>▤</span>My Cases</button>
+    <button data-page="submit"><span>＋</span>Submit New Case</button>
+    <button data-page="comparison"><span>⇄</span>Comparisons</button>
+    <button data-page="errors"><span>⚑</span>Error Analysis</button>
+    <button data-page="insights"><span>▥</span>Insights</button>
+    <button data-page="reports"><span>▧</span>Reports</button>
+  </nav>
+  <div class="sidebottom">⚙ &nbsp; Settings<br><br><small>DEMO · SAMPLE DATA</small></div>
+</aside>
+<main class="main">
+  <header class="topbar"><div class="eyebrow">Research workspace / Indonesia</div><input class="search" id="search" placeholder="⌕  Search cases or topics..."><div class="profile">◉ &nbsp; Researcher Demo ▾</div></header>
+  <div class="content">
+    <section id="page-dashboard" class="page">
+      <div class="headingrow"><div><div class="eyebrow">Workspace overview</div><h1>Research Dashboard</h1><div class="muted">Review AI legal outputs, track errors, and organize research submissions.</div></div><div class="btnrow"><button class="btn" onclick="exportCSV()">Export CSV</button><button class="btn primary" onclick="showPage('submit')">＋ New case</button></div></div>
+      <div class="meta"><span class="pill">Demo workspace</span><span>Updated just now</span><span>All figures below are illustrative</span></div>
+      <div class="modelrow">
+        <div class="panel"><div class="muted">Research cases</div><h1 id="statCases">12</h1><small class="muted">Across task categories</small></div>
+        <div class="panel"><div class="muted">AI outputs reviewed</div><h1 id="statOutputs">36</h1><small class="muted">Three outputs per sample case</small></div>
+        <div class="panel"><div class="muted">Issues flagged</div><h1 id="statIssues">18</h1><small class="muted">Require human verification</small></div>
+      </div>
+      <div class="layout"><div>
+        <div class="panel"><h2>Recent research cases</h2><div id="recentCases"></div><button class="btn" onclick="showPage('cases')">View all cases →</button></div>
+        <div class="panel"><h2>Latest evaluation — Contract termination</h2><div class="muted" style="margin-bottom:13px">Sample record · Commercial law · Legal opinion</div><div class="modelrow" style="margin-bottom:0">
+          <div class="model selected"><div class="modelicon">A</div><div><b>AI Product A</b><small>Model response</small></div><span class="rank">2nd</span></div>
+          <div class="model"><div class="modelicon" style="color:#bd6944">B</div><div><b>AI Product B</b><small>Model response</small></div><span class="rank">3rd</span></div>
+          <div class="model"><div class="modelicon" style="color:#6c62c9">C</div><div><b>AI Product C</b><small>Model response</small></div><span class="rank first">1st</span></div>
+        </div></div>
+      </div><div class="rightcol">
+        <div class="sidepanel"><h3>Researcher preference</h3><div class="stat"><small>Most preferred in this sample</small><b>AI Product C</b></div><div class="stat"><small>Reason</small><span>Clearer structure and more relevant supporting sources.</span></div></div>
+        <div class="sidepanel"><h3>Evaluation reminders</h3><div class="stat"><small>1. Separate preference from accuracy</small></div><div class="stat"><small>2. Verify every flagged citation</small></div><div class="stat"><small>3. Keep sensitive data anonymized</small></div></div>
+        <div class="callout"><b>Human-in-the-loop</b><br><br>AI flags are suggestions, not confirmed legal errors. A researcher must validate each finding.</div>
+      </div></div>
+    </section>
+    <section id="page-cases" class="page hidden">
+      <div class="headingrow"><div><div class="eyebrow">Research library</div><h1>My Cases</h1><div class="muted">Find and manage submitted research cases.</div></div><button class="btn primary" onclick="showPage('submit')">＋ Submit new case</button></div>
+      <div class="panel" style="margin-top:18px"><input id="caseFilter" class="search" style="width:100%" placeholder="Filter cases by title or legal area..." oninput="renderCases()"><div id="allCases" style="margin-top:14px"></div></div>
+    </section>
+    <section id="page-submit" class="page hidden">
+      <div class="eyebrow">New submission</div><h1>Submit Research Case</h1><p class="muted">Create a case and record three AI outputs for comparison. This demo stores submissions only in this page session.</p>
+      <div class="panel" style="max-width:900px">
+        <form id="submitForm" class="formgrid">
+          <div class="field full"><label for="title">Case title *</label><input id="title" required placeholder="e.g. Analysis of Business Contract Termination"></div>
+          <div class="field"><label for="area">Legal area *</label><select id="area" required><option value="">Select area</option><option>Commercial Law</option><option>Employment Law</option><option>Intellectual Property</option><option>Data Protection</option><option>Dispute Resolution</option><option>Other</option></select></div>
+          <div class="field"><label for="task">Work product *</label><select id="task" required><option>Legal Opinion</option><option>Contract Review</option><option>Legal Research Memo</option><option>Regulatory Analysis</option><option>Case Summary</option></select></div>
+          <div class="field full"><label for="context">Research question / context *</label><textarea id="context" required placeholder="Describe the question, relevant facts, jurisdiction, and scope. Avoid confidential personal data."></textarea></div>
+          <div class="field"><label for="a">AI Product A output *</label><textarea id="a" required placeholder="Paste output from product A"></textarea></div>
+          <div class="field"><label for="b">AI Product B output *</label><textarea id="b" required placeholder="Paste output from product B"></textarea></div>
+          <div class="field full"><label for="c">AI Product C output *</label><textarea id="c" required placeholder="Paste output from product C"></textarea></div>
+          <div class="field"><label for="pref">Researcher preference</label><select id="pref"><option>Not evaluated yet</option><option>AI Product A</option><option>AI Product B</option><option>AI Product C</option><option>Tie / none</option></select></div>
+          <div class="field"><label for="reason">Reason for preference</label><input id="reason" placeholder="e.g. clearer reasoning, better citations"></div>
+          <div class="field full"><label for="notes">Researcher notes / verified errors</label><textarea id="notes" placeholder="Record issues with evidence, corrections, and review status."></textarea></div>
+          <div class="field full"><div class="notice">Demo note: no model APIs are called. The site records the three supplied outputs for side-by-side review. Do not upload privileged or confidential client material to this demo.</div></div>
+          <div class="field"><button class="btn primary" type="submit">Save research case</button></div><div class="field"><button class="btn" type="reset">Clear form</button></div>
+        </form>
+      </div>
+    </section>
+    <section id="page-comparison" class="page hidden">
+      <div class="eyebrow">Side-by-side evaluation</div><h1>AI Comparison</h1><p class="muted">Compare the same research task across three AI products.</p>
+      <div class="context"><b>Selected case:</b> <span id="comparisonTitle">Analysis of Business Contract Termination</span><div class="muted" style="margin-top:5px">Sample content — illustrative only, not legal advice.</div></div>
+      <div class="panel"><h2>Evaluation criteria</h2><div class="tablewrap"><table><thead><tr><th>Criterion</th><th>AI Product A</th><th>AI Product B</th><th>AI Product C</th></tr></thead><tbody>
+        <tr><td><b>Legal accuracy</b><br><span class="muted">Correct legal interpretation</span></td><td>4/5<div class="bar"><i style="width:80%"></i></div></td><td>3/5<div class="bar"><i class="low" style="width:60%"></i></div></td><td>4/5<div class="bar"><i style="width:80%"></i></div></td></tr>
+        <tr><td><b>Citation validity</b><br><span class="muted">Relevant, verifiable sources</span></td><td>4/5<div class="bar"><i style="width:80%"></i></div></td><td>2/5<div class="bar"><i class="bad" style="width:40%"></i></div></td><td>4/5<div class="bar"><i style="width:80%"></i></div></td></tr>
+        <tr><td><b>Completeness</b><br><span class="muted">Coverage of key issues</span></td><td>3/5<div class="bar"><i class="low" style="width:60%"></i></div></td><td>5/5<div class="bar"><i style="width:100%"></i></div></td><td>4/5<div class="bar"><i style="width:80%"></i></div></td></tr>
+        <tr><td><b>Researcher preference</b></td><td>2nd</td><td>3rd</td><td><span class="pill">1st</span></td></tr>
+      </tbody></table></div></div>
+      <div class="panel"><h2>AI outputs</h2><div class="outputgrid" id="outputCards"></div></div>
+    </section>
+    <section id="page-errors" class="page hidden">
+      <div class="eyebrow">Human-verified review</div><h1>Error Analysis</h1><p class="muted">Track potential errors and record verification. Sample issue labels below are fictional.</p>
+      <div class="panel"><div class="issuewrap"><div class="issue head"><div>Potential issue</div><div>Severity</div><div>AI product</div><div>Details / status</div></div>
+      <div class="issue"><div><b>Unverified citation</b></div><div><span class="severity critical">Critical</span></div><div>Product B</div><div>Source requires verification against an authoritative database.</div></div>
+      <div class="issue"><div><b>Missing key argument</b></div><div><span class="severity major">Major</span></div><div>Product B</div><div>Potentially omits counterarguments or relevant exceptions.</div></div>
+      <div class="issue"><div><b>Unsupported conclusion</b></div><div><span class="severity major">Major</span></div><div>Product A</div><div>Conclusion needs a clearer link to the cited authority.</div></div>
+      <div class="issue"><div><b>Incomplete analysis</b></div><div><span class="severity minor">Minor</span></div><div>Product C</div><div>Consider whether procedural risks are addressed.</div></div></div>
+      <div class="notice">These are example flags only. A flag must not be treated as a confirmed error until a qualified reviewer verifies it.</div></div>
+    </section>
+    <section id="page-insights" class="page hidden">
+      <div class="eyebrow">Aggregated patterns</div><h1>Research Insights</h1><p class="muted">Illustrative analytics to show how structured submissions can become useful research data.</p>
+      <div class="modelrow">
+        <div class="panel"><div class="muted">Top preferred (sample)</div><h2>Product C</h2><div class="bar"><i style="width:38%"></i></div><small>38% of sample preferences</small></div>
+        <div class="panel"><div class="muted">Strongest citation score</div><h2>Product A</h2><div class="bar"><i style="width:72%"></i></div><small>Illustrative sample result</small></div>
+        <div class="panel"><div class="muted">Most common issue</div><h2>Unverified citation</h2><small>Requires human verification</small></div>
+      </div>
+      <div class="panel"><h2>What this could answer</h2><ul><li>Which product performs best for a specific legal task?</li><li>Which error types occur most frequently?</li><li>Does researcher preference align with verified accuracy?</li><li>Which legal subfields need more evaluation data?</li></ul><div class="notice">Do not publish rankings until there is sufficient, representative, consistently reviewed data.</div></div>
+    </section>
+    <section id="page-reports" class="page hidden">
+      <div class="eyebrow">Export & reporting</div><h1>Reports</h1><p class="muted">Export the demo case records for offline review.</p>
+      <div class="panel"><h2>Available exports</h2><div class="caseitem"><div><b>Research cases CSV</b><small>Case metadata, task type, and preference</small></div><button class="btn" onclick="exportCSV()">Export CSV</button></div><div class="caseitem"><div><b>Research cases JSON</b><small>Structured submission records including output text</small></div><button class="btn" onclick="exportJSON()">Export JSON</button></div><div class="notice">Production exports should enforce role permissions and exclude confidential information by default.</div></div>
+    </section>
+    <div class="footer">LEGAL BENCH · INTERACTIVE FRONT-END DEMO · SAMPLE DATA ONLY · NOT LEGAL ADVICE</div>
+  </div>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const sample={
+ id:'LB-DEMO-001',title:'Analysis of Business Contract Termination',area:'Commercial Law',task:'Legal Opinion',
+ context:'A company is considering terminating a distribution agreement due to repeated breaches by the supplier. Please assess the legal issues, risks, and relevant legal basis under Indonesian law.',
+ a:'A legal opinion should assess the contract terms, evidence of breach, notice and cure requirements, and the applicable provisions of Indonesian law. Any conclusion depends on the agreement wording and verified legal authorities.',
+ b:'The company may have grounds to terminate if the supplier materially breached the agreement. The analysis should examine contractual remedies, notice requirements, potential damages, and counterarguments before reaching a conclusion.',
+ c:'The analysis should begin with the distribution agreement, identify the alleged breaches and notice provisions, then verify the applicable statutory rules and relevant decisions. The conclusion should distinguish contractual rights from litigation risk.',
+ preference:'AI Product C',reason:'Clearer structure and a more balanced outline of issues.',notes:'Sample record; all legal citations and conclusions must be independently verified.'
+};
+let cases=[sample];
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(msg){let el=document.getElementById('toast');el.textContent=msg;el.style.display='block';setTimeout(()=>el.style.display='none',2600)}
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById('page-'+name).classList.remove('hidden');document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));if(name==='cases')renderCases();if(name==='dashboard')renderRecent();if(name==='comparison')renderOutputs();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('#nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function renderRecent(){let el=document.getElementById('recentCases');el.innerHTML=cases.slice(-4).reverse().map(c=>`<div class="caseitem"><div><b>${esc(c.title)}</b><small>${esc(c.area)} · ${esc(c.task)} · ${esc(c.id)}</small></div><button class="btn" onclick="showPage('comparison')">Compare</button></div>`).join('');document.getElementById('statCases').textContent=12+cases.length-1;document.getElementById('statOutputs').textContent=(12+cases.length-1)*3;document.getElementById('statIssues').textContent=18+Math.max(0,cases.length-1)}
+function renderCases(){let q=(document.getElementById('caseFilter')?.value||'').toLowerCase();let el=document.getElementById('allCases');let arr=cases.filter(c=>(c.title+' '+c.area+' '+c.task).toLowerCase().includes(q));el.innerHTML=arr.length?arr.slice().reverse().map(c=>`<div class="caseitem"><div><b>${esc(c.title)}</b><small>${esc(c.area)} · ${esc(c.task)} · ${esc(c.id)}<br>Preference: ${esc(c.preference||'Not evaluated yet')}</small></div><button class="btn" onclick="showPage('comparison')">Open comparison →</button></div>`).join(''):'<div class="empty">No cases match that search.</div>'}
+function renderOutputs(){let c=cases[cases.length-1]||sample;document.getElementById('comparisonTitle').textContent=c.title;let outputs=[['AI Product A',c.a],['AI Product B',c.b],['AI Product C',c.c]];document.getElementById('outputCards').innerHTML=outputs.map(([name,txt])=>`<div class="output"><div class="outhead"><span>${name}</span><button class="btn" style="padding:4px 7px;font-size:10px" onclick="toast('Output shown in demo workspace')">View</button></div><div class="outbody">${esc(txt||'No output submitted.')}<div class="source">Sources / references should be independently checked.</div></div></div>`).join('')}
+document.getElementById('submitForm').addEventListener('submit',e=>{e.preventDefault();let c={id:'LB-'+String(Date.now()).slice(-6),title:document.getElementById('title').value.trim(),area:document.getElementById('area').value,task:document.getElementById('task').value,context:document.getElementById('context').value.trim(),a:document.getElementById('a').value.trim(),b:document.getElementById('b').value.trim(),c:document.getElementById('c').value.trim(),preference:document.getElementById('pref').value,reason:document.getElementById('reason').value,notes:document.getElementById('notes').value};cases.push(c);e.target.reset();renderRecent();renderCases();renderOutputs();toast('Research case saved in this session.');showPage('cases')});
+document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase();if(!q)return;let found=cases.some(c=>(c.title+' '+c.area+' '+c.task).toLowerCase().includes(q));if(found){showPage('cases');document.getElementById('caseFilter').value=e.target.value;renderCases()}});
+function download(filename,content,type){let blob=new Blob([content],{type});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);toast('Export ready: '+filename)}
+function exportJSON(){download('legal-bench-demo-cases.json',JSON.stringify(cases,null,2),'application/json')}
+function exportCSV(){let cols=['id','title','area','task','context','a','b','c','preference','reason','notes'];let csv=[cols.join(','),...cases.map(c=>cols.map(k=>'"'+String(c[k]||'').replace(/"/g,'""').replace(/\n/g,' ')+'"').join(','))].join('\n');download('legal-bench-demo-cases.csv',csv,'text/csv')}
+renderRecent();renderCases();renderOutputs();
+</script>
+</body>
+</html>
